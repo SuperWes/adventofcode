@@ -4,7 +4,54 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DrunkElfPathThingy {
-    public int countVisits(String arg) {
+
+    public int countVisitsWithRoboSanta(String arg) {
+        int x1 = 0, y1 = 0;
+        int x2 = 0, y2 = 0;
+
+        Set<House> visitedHouses = new HashSet<>();
+        visitedHouses.add(new House(x1, y1));
+        char[] chars = arg.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            boolean isSanta = i % 2 == 0;
+            switch (c) {
+                case '>':
+                    if (isSanta) {
+                        x1 += 1;
+                    } else {
+                        x2 += 1;
+                    }
+                    break;
+                case '<':
+                    if (isSanta) {
+                        x1 -= 1;
+                    } else {
+                        x2 -= 1;
+                    }
+                    break;
+                case '^':
+                    if (isSanta) {
+                        y1 += 1;
+                    } else {
+                        y2 += 1;
+                    }
+                    break;
+                case 'v':
+                    if (isSanta) {
+                        y1 -= 1;
+                    } else {
+                        y2 -= 1;
+                    }
+                    break;
+            }
+            visitedHouses.add(new House(x1, y1));
+            visitedHouses.add(new House(x2, y2));
+        }
+        return visitedHouses.size();
+    }
+
+    public int countVisitsWithSingleSanta(String arg) {
         int x = 0, y = 0;
         Set<House> visitedHouses = new HashSet<>();
         visitedHouses.add(new House(x, y));
